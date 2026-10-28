@@ -90,12 +90,9 @@ class Matriz {
     
     // MARK: - Constructores especiales
     
-    // Inicializador de 0 (factory method)
+    // Método de fábrica para crear una matriz de ceros
     static func zeros(filas: Int, columnas: Int) -> Matriz {
-        guard filas > 0 && columnas > 0 else {
-            return Matriz()
-        }
-        
+        // El inicializador privado ya valida las dimensiones.
         return Matriz(filas: filas, columnas: columnas, valorInicial: 0)
     }
 
@@ -145,7 +142,7 @@ class Matriz {
             return false
         }
         
-        return filas == otra.columnas
+        return columnas == otra.filas
     }
 
     // MARK: - Operaciones aritméticas
@@ -158,7 +155,7 @@ class Matriz {
         }
 
         // Creamos la matriz que contendrá el resultado
-        let resultado = Matriz(
+        let resultado = Matriz.zeros(
             filas: lhs.filas,
             columnas: lhs.columnas
         )
@@ -183,7 +180,7 @@ class Matriz {
         }
         
         // Creamos la matriz que contendrá el resultado
-        let resultado = Matriz(
+        let resultado = Matriz.zeros(
             filas: lhs.filas,
             columnas: lhs.columnas
         )
@@ -210,12 +207,13 @@ class Matriz {
         // Creamos la matriz que contendrá el resultado:
         let resultado = Matriz.zeros(filas: lhs.filas, columnas: rhs.columnas)
         
-        for fila_mi in 0..<lhs.filas {
-            for columna_md in 0..<rhs.columnas {
-                for columna_mi in 0..<lhs.columnas {
-                    resultado.elementos[fila_mi][columna_md] +=
-                        lhs.elementos[fila_mi][columna_mi] +
-                        rhs.elementos[columna_mi][columna_md]
+        // Cada celda es la suma de los productos de una fila por una columna.
+        for fila in 0..<lhs.filas {
+            for columna in 0..<rhs.columnas {
+                for indice in 0..<lhs.columnas {
+                    resultado.elementos[fila][columna] +=
+                        lhs.elementos[fila][indice] *
+                        rhs.elementos[indice][columna]
                 }
             }
         }
