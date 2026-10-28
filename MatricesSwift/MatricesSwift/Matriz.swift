@@ -238,9 +238,92 @@ class Matriz {
         return resultado
     }
     
+    static func * (lhs: Int, rhs: Matriz) -> Matriz {
+        
+        guard !rhs.esNula else {
+            return Matriz()
+        }
+        
+        let resultado = Matriz(copiaDe: rhs)
+        
+        for fila in 0..<rhs.filas {
+            for columna in 0..<rhs.columnas {
+                resultado.elementos[fila][columna] = rhs.elementos[fila][columna] * lhs
+            }
+        }
+        
+        return resultado
+    }
     
-    // Pendiente:
-    // - Operadores compuestos (+=, -=, *=)
+    static func += (lhs: Matriz, rhs: Matriz) -> Matriz {
+        
+        guard lhs.esCompatibleParaSuma(rhs) else {
+            return lhs
+        }
+        
+        for fila in 0..<lhs.filas {
+            for columna in 0..<lhs.columnas {
+                lhs.elementos[fila][columna] += rhs.elementos[fila][columna]
+            }
+        }
+        
+        return lhs
+    }
+    
+    static func -= (lhs: Matriz, rhs: Matriz) -> Matriz {
+        
+        guard lhs.esCompatibleParaSuma(rhs) else {
+            return lhs
+        }
+        
+        for fila in 0..<lhs.filas {
+            for columna in 0..<lhs.columnas {
+                lhs.elementos[fila][columna] -= rhs.elementos[fila][columna]
+            }
+        }
+        
+        return lhs
+    }
+    
+    static func *= (lhs: Matriz, rhs: Matriz) -> Matriz {
+        
+        guard lhs.sePuedeMultiplicarPor(rhs) else {
+            return Matriz()
+        }
+        
+        let resultado = Matriz.zeros(filas: lhs.filas, columnas: rhs.columnas)
+        
+        for fila in 0..<lhs.filas {
+            for columna in 0..<rhs.columnas {
+                for indice in 0..<lhs.columnas {
+                    resultado.elementos[fila][columna] +=
+                        lhs.elementos[fila][indice] *
+                        rhs.elementos[indice][columna]
+                }
+            }
+        }
+        
+        return resultado
+    }
+    
+    static func == (lhs: Matriz, rhs: Matriz) -> Bool {
+        
+        guard lhs.filas != rhs.filas || lhs.columnas != rhs.columnas else {
+            return false
+        }
+        
+        for fila in 0..<lhs.filas {
+            for columna in 0..<lhs.columnas {
+                if lhs.elementos[fila][columna] != lhs.elementos[fila][columna] {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    
     // - Igualdad (==)
 
 
