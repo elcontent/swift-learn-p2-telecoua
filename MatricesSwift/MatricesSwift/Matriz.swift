@@ -62,6 +62,42 @@ class Matriz {
         self.columnas = original.columnas
         self.elementos = original.elementos
     }
+    
+    // Inicializador privado con valor determinado
+    private init(
+        filas: Int,
+        columnas: Int,
+        valorInicial: Int
+    ) {
+        guard filas > 0 && columnas > 0 else {
+            self.filas = 0
+            self.columnas = 0
+            self.elementos = []
+            return
+        }
+
+        self.filas = filas
+        self.columnas = columnas
+
+        self.elementos = Array(
+            repeating: Array(
+                repeating: valorInicial,
+                count: columnas
+            ),
+            count: filas
+        )
+    }
+    
+    // MARK: - Constructores especiales
+    
+    // Inicializador de 0 (factory method)
+    static func zeros(filas: Int, columnas: Int) -> Matriz {
+        guard filas > 0 && columnas > 0 else {
+            return Matriz()
+        }
+        
+        return Matriz(filas: filas, columnas: columnas, valorInicial: 0)
+    }
 
     // MARK: - Acceso a elementos
 
@@ -102,16 +138,17 @@ class Matriz {
         return filas == otra.filas &&
                columnas == otra.columnas
     }
+    
+    // Comprobar compatibilidad para multiplicación
+    func sePuedeMultiplicarPor(_ otra: Matriz) -> Bool {
+        guard !esNula && !otra.esNula else {
+            return false
+        }
+        
+        return filas == otra.columnas
+    }
 
     // MARK: - Operaciones aritméticas
-
-    // Pendiente:
-    // - Suma de matrices (+)
-    // - Resta de matrices (-)
-    // - Producto de matrices (*)
-    // - Producto por escalar (*)
-    // - Operadores compuestos (+=, -=, *=)
-    // - Igualdad (==)
     
     static func + (lhs: Matriz, rhs: Matriz) -> Matriz {
 
@@ -162,6 +199,51 @@ class Matriz {
         
         return resultado
     }
+    
+    static func * (lhs: Matriz, rhs: Matriz) -> Matriz {
+        
+        // Comprobamos que las matrices sean compatibles
+        guard lhs.sePuedeMultiplicarPor(rhs) else {
+            return Matriz()
+        }
+        
+        // Creamos la matriz que contendrá el resultado:
+        let resultado = Matriz.zeros(filas: lhs.filas, columnas: rhs.columnas)
+        
+        for fila_mi in 0..<lhs.filas {
+            for columna_md in 0..<rhs.columnas {
+                for columna_mi in 0..<lhs.columnas {
+                    resultado.elementos[fila_mi][columna_md] +=
+                        lhs.elementos[fila_mi][columna_mi] +
+                        rhs.elementos[columna_mi][columna_md]
+                }
+            }
+        }
+        
+        return resultado
+    }
+    
+    static func * (lhs: Matriz, rhs: Int) -> Matriz {
+        
+        guard !lhs.esNula else {
+            return Matriz()
+        }
+        
+        let resultado = Matriz(copiaDe: lhs)
+        
+        for fila in 0..<lhs.filas {
+            for columna in 0..<lhs.columnas {
+                resultado.elementos[fila][columna] = lhs.elementos[fila][columna] * rhs
+            }
+        }
+        
+        return resultado
+    }
+    
+    
+    // Pendiente:
+    // - Operadores compuestos (+=, -=, *=)
+    // - Igualdad (==)
 
 
     // MARK: - Representación
