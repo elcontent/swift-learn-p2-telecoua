@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100/
+.Trashes/
+
+# Xcode - archivos locales del usuario
+**/xcuserdata/
+*.xcuserstate
+*.xcuserdatad/
+*.xcscmblueprint
+*.xccheckout
+
+# Xcode - compilaciones, cachés e informes
+**/DerivedData/
+**/build/
+*.xcarchive/
+*.xcresult/
+*.dSYM/
+*.dSYM.zip
+*.ipa
+
+# Swift Package Manager - cachés locales
+.build/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+
+# Archivos temporales
+*.swp
+*.swo
+*~
