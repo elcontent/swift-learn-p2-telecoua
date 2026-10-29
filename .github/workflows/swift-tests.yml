@@ -1,0 +1,25 @@
+name: Swift Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: MatricesSwift · Swift Testing
+    runs-on: ubuntu-latest
+    container: swift:6.2
+
+    defaults:
+      run:
+        working-directory: MatricesSwift
+
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@v4
+
+      - name: Ejecutar las pruebas
+        run: swift test --parallel
