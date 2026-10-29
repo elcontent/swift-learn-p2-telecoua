@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Matriz {
+class Matriz: Equatable {
 
     // MARK: - Propiedades
 
@@ -64,7 +64,7 @@ class Matriz {
     }
     
     // Inicializador privado con valor determinado
-    private init(
+    init(
         filas: Int,
         columnas: Int,
         valorInicial: Int
