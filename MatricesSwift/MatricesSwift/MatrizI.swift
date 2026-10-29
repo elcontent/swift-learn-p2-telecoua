@@ -28,32 +28,7 @@ class MatrizI: MatrizP {
     }
     
     override init(orden: Int) {
-
-        // Construimos una permutación válida
-        super.init(orden: orden)
-
-        guard orden > 0 else {
-            return
-        }
-
-        for diagonal in 0..<orden {
-
-            // ¿Ya tenemos el 1 en la posición correcta?
-            if valor(fila: diagonal, columna: diagonal) == 1 {
-                continue
-            }
-
-            // Buscamos la fila que contiene el 1 de esta columna
-            for siguiente in (diagonal + 1)..<orden {
-
-                if valor(fila: siguiente, columna: diagonal) == 1 {
-
-                    // Intercambio controlado utilizando MatrizP
-                    _ = super.intercambiarFilas(diagonal, siguiente)
-                    break
-                }
-            }
-        }
+        super.init(identidadDeOrden: orden)
     }
     
     // MARK: - Comprobadores

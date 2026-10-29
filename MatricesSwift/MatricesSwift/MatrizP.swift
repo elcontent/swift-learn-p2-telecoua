@@ -45,6 +45,25 @@ class MatrizP: MatrizC {
         }
     }
     
+    init(identidadDeOrden orden: Int) {
+
+        // Creamos una matriz cuadrada llena de ceros
+        super.init(orden: orden, valorInicial: 0)
+
+        guard orden > 0 else {
+            return
+        }
+
+        // Colocamos los unos en la diagonal
+        for indice in 0..<orden {
+            _ = super.establecerValor(
+                1,
+                fila: indice,
+                columna: indice
+            )
+        }
+    }
+    
     // MARK: - Comprobadores
     
     static func esPermutacion(_ otra: Matriz) -> Bool {
