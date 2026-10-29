@@ -19,6 +19,15 @@ class MatrizC: Matriz {
         super.init(filas: orden, columnas: orden, valorInicial: valorInicial)
     }
     
+    init?(copiaDe otra: MatrizC) {
+        guard !otra.esNula,
+              otra.filas == otra.columnas else {
+            return nil
+        }
+        
+        super.init(copiaDe: otra)
+    }
+    
     // MARK: - Constructores especiales
     
     static func zeros(orden: Int) -> MatrizC {
