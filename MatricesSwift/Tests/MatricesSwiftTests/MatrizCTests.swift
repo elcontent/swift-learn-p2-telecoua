@@ -105,11 +105,11 @@ struct MatrizCTests {
     // MARK: - Copia
 
     @Test("La copia de una MatrizC conserva dimensiones y contenido")
-    func copiaDeCuadrada() throws {
+    func copiaDeCuadrada() {
         let original = MatrizC(orden: 2, valorInicial: 4)
         #expect(original.establecerValor(9, fila: 0, columna: 1))
 
-        let copia = try #require(MatrizC(copiaDe: original))
+        let copia = MatrizC(copiaDe: original)
 
         #expect(copia.filas == 2)
         #expect(copia.columnas == 2)
@@ -120,9 +120,9 @@ struct MatrizCTests {
     }
 
     @Test("La copia es independiente del objeto original")
-    func copiaSinCompartirReferencia() throws {
+    func copiaSinCompartirReferencia() {
         let original = MatrizC(orden: 2, valorInicial: 5)
-        let copia = try #require(MatrizC(copiaDe: original))
+        let copia = MatrizC(copiaDe: original)
 
         #expect(copia.establecerValor(99, fila: 1, columna: 1))
 
@@ -131,10 +131,46 @@ struct MatrizCTests {
         #expect(original !== copia)
     }
 
-    @Test("El inicializador de copia failable rechaza una MatrizC nula")
+    @Test("La copia de una MatrizC nula conserva 0×0 y crea otro objeto")
     func copiaDeNula() {
         let nula = MatrizC(orden: 0)
-        #expect(nula.esNula)
-        #expect(MatrizC(copiaDe: nula) == nil)
+        let copia = MatrizC(copiaDe: nula)
+        #expect(copia.esNula)
+        #expect(copia.filas == 0)
+        #expect(copia.columnas == 0)
+        #expect(copia !== nula)
+    }
+
+    // MARK: - Conversión failable desde Matriz
+
+    @Test("Convierte una Matriz genérica cuadrada conservando los elementos")
+    func conversionDesdeMatrizCuadrada() throws {
+        let original: Matriz = Matriz.zeros(filas: 3, columnas: 3)
+        #expect(original.establecerValor(42, fila: 1, columna: 2))
+
+        let cuadrada = try #require(MatrizC(desde: original))
+        #expect(cuadrada.filas == 3)
+        #expect(cuadrada.columnas == 3)
+        #expect(cuadrada == original)
+        #expect(cuadrada !== original)
+        #expect(cuadrada.valor(fila: 1, columna: 2) == 42)
+
+        #expect(cuadrada.establecerValor(7, fila: 1, columna: 2))
+        #expect(original.valor(fila: 1, columna: 2) == 42)
+    }
+
+    @Test("Rechaza matrices rectangulares, en ambos sentidos")
+    func conversionDesdeMatrizRectangular() {
+        let apaisada = Matriz.zeros(filas: 2, columnas: 3)
+        let vertical = Matriz.zeros(filas: 3, columnas: 2)
+
+        #expect(MatrizC(desde: apaisada) == nil)
+        #expect(MatrizC(desde: vertical) == nil)
+    }
+
+    @Test("Rechaza una Matriz genérica nula")
+    func conversionDesdeMatrizNula() {
+        #expect(MatrizC(desde: Matriz()) == nil)
+        #expect(MatrizC(desde: Matriz.zeros(filas: 0, columnas: 0)) == nil)
     }
 }
