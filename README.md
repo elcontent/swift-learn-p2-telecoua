@@ -51,7 +51,7 @@ Se generalizará la jerarquía mediante tipos genéricos, para trabajar con `Int
 - [x] Conceptos de `nil`, `Void`, etiquetas de argumentos, `guard` y `@discardableResult`.
 - [x] Validación de dimensiones para suma y resta.
 - [x] Completar los operadores aritméticos básicos y compuestos.
-- [x] Añadir 28 pruebas automatizadas con Swift Testing.
+- [x] Añadir 31 pruebas automatizadas con Swift Testing.
 - [ ] Implementar `MatrizC`, `MatrizP` y `MatrizI`.
 - [ ] Implementar genéricos y `Fibonacci`.
 - [ ] Refactorizar con patrones idiomáticos de Swift.
@@ -69,7 +69,7 @@ Para trabajar en el proyecto, abre el proyecto de Xcode desde tu copia local, se
 
 ## Ejecutar las pruebas
 
-Las 28 pruebas de `Matriz` y `MatrizC` se han escrito con **Swift Testing** y funcionan mediante **Swift Package Manager**, sin modificar el proyecto de consola de Xcode existente.
+Las 31 pruebas de `Matriz` y `MatrizC` se han escrito con **Swift Testing** y funcionan mediante **Swift Package Manager**, sin modificar el proyecto de consola de Xcode existente.
 
 Desde la raíz del repositorio:
 
@@ -80,7 +80,7 @@ swift test --parallel
 
 Para ejecutarlas visualmente en **Xcode**, abre la carpeta `MatricesSwift/` como *Swift Package* (mediante `File > Open`, seleccionando la carpeta que contiene `Package.swift`) y utiliza **⌘U**. El proyecto `MatricesSwift.xcodeproj` sigue siendo el punto de entrada para editar y ejecutar el programa de consola con **⌘R**, pero no tiene un test target propio: para `⌘U` debes abrir el paquete.
 
-Los tests cubren inicializadores de `Matriz` y `MatrizC` (incluida la copia failable de `MatrizC`), valores aleatorios dentro del rango, matrices nulas y cuadradas, factorías `zeros`, lectura y escritura con índices inválidos, copias y referencias, suma, resta, multiplicación matricial y escalar, operadores compuestos, igualdad y dimensiones incompatibles.
+Los tests cubren inicializadores de `Matriz` y `MatrizC` (incluidas la copia independiente de `MatrizC` y la conversión failable desde `Matriz`), valores aleatorios dentro del rango, matrices nulas y cuadradas, factorías `zeros`, lectura y escritura con índices inválidos, copias y referencias, suma, resta, multiplicación matricial y escalar, operadores compuestos, igualdad y dimensiones incompatibles.
 
 GitHub Actions ejecuta `swift test --parallel` automáticamente en cada `push` y `pull_request` mediante `.github/workflows/swift-tests.yml`.
 
