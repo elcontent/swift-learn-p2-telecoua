@@ -101,4 +101,40 @@ struct MatrizCTests {
             }
         }
     }
+
+    // MARK: - Copia
+
+    @Test("La copia de una MatrizC conserva dimensiones y contenido")
+    func copiaDeCuadrada() throws {
+        let original = MatrizC(orden: 2, valorInicial: 4)
+        #expect(original.establecerValor(9, fila: 0, columna: 1))
+
+        let copia = try #require(MatrizC(copiaDe: original))
+
+        #expect(copia.filas == 2)
+        #expect(copia.columnas == 2)
+        #expect(copia == original)
+        #expect(copia !== original)
+        #expect(copia.valor(fila: 0, columna: 0) == 4)
+        #expect(copia.valor(fila: 0, columna: 1) == 9)
+    }
+
+    @Test("La copia es independiente del objeto original")
+    func copiaSinCompartirReferencia() throws {
+        let original = MatrizC(orden: 2, valorInicial: 5)
+        let copia = try #require(MatrizC(copiaDe: original))
+
+        #expect(copia.establecerValor(99, fila: 1, columna: 1))
+
+        #expect(original.valor(fila: 1, columna: 1) == 5)
+        #expect(copia.valor(fila: 1, columna: 1) == 99)
+        #expect(original !== copia)
+    }
+
+    @Test("El inicializador de copia failable rechaza una MatrizC nula")
+    func copiaDeNula() {
+        let nula = MatrizC(orden: 0)
+        #expect(nula.esNula)
+        #expect(MatrizC(copiaDe: nula) == nil)
+    }
 }
