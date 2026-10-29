@@ -11,6 +11,10 @@ class MatrizP: MatrizC {
     
     // MARK: - Inicializadores
     
+    override init() {
+        super.init()
+    }
+    
     init(copiaDe otra: MatrizP) {
         super.init(copiaDe: otra)
     }

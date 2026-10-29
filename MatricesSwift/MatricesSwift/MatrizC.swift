@@ -11,6 +11,10 @@ class MatrizC: Matriz {
     
     // MARK: - Inicializadores
     
+    override init() {
+        super.init()
+    }
+    
     init(orden: Int) {
         super.init(filas: orden, columnas: orden)
     }
