@@ -57,7 +57,7 @@ class Matriz: Equatable {
     }
 
     // Inicializador de copia independiente
-    init?(copiaDe original: Matriz) {
+    init(copiaDe original: Matriz) {
         self.filas = original.filas
         self.columnas = original.columnas
         self.elementos = original.elementos
