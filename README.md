@@ -50,14 +50,14 @@ Se generalizará la jerarquía mediante tipos genéricos, para trabajar con `Int
 - [x] Diseño inicial de `Matriz`: propiedades, inicializadores, copia, acceso controlado y presentación.
 - [x] Conceptos de `nil`, `Void`, etiquetas de argumentos, `guard` y `@discardableResult`.
 - [x] Validación de dimensiones para suma y resta.
-- [ ] Completar y probar los operadores aritméticos.
-- [ ] Añadir pruebas automatizadas.
+- [x] Completar los operadores aritméticos básicos y compuestos.
+- [x] Añadir 19 pruebas automatizadas con Swift Testing.
 - [ ] Implementar `MatrizC`, `MatrizP` y `MatrizI`.
 - [ ] Implementar genéricos y `Fibonacci`.
 - [ ] Refactorizar con patrones idiomáticos de Swift.
 - [ ] Desarrollar una interfaz SwiftUI (ampliación opcional).
 
-> **Nota:** esta lista refleja el progreso de aprendizaje. El código del proyecto Xcode puede encontrarse aún en el equipo local y no necesariamente está publicado en este repositorio.
+> **Nota:** el código del proyecto Xcode se encuentra versionado en `MatricesSwift/MatricesSwift/`. Las pruebas están separadas del ejecutable.
 
 ## Entorno de desarrollo
 
@@ -66,6 +66,23 @@ Se generalizará la jerarquía mediante tipos genéricos, para trabajar con `Int
 - Swift
 
 Para trabajar en el proyecto, abre el proyecto de Xcode desde tu copia local, selecciona el destino **My Mac** y ejecútalo con **⌘R**. Puedes compilar con **⌘B** y abrir la consola de depuración con **⌘⇧Y**.
+
+## Ejecutar las pruebas
+
+Las 19 pruebas de `Matriz` se han escrito con **Swift Testing** y funcionan mediante **Swift Package Manager**, sin modificar el proyecto de consola de Xcode existente.
+
+Desde la raíz del repositorio:
+
+```bash
+cd MatricesSwift
+swift test --parallel
+```
+
+Para ejecutarlas visualmente en **Xcode**, abre la carpeta `MatricesSwift/` como *Swift Package* (mediante `File > Open`, seleccionando la carpeta que contiene `Package.swift`) y utiliza **⌘U**. El proyecto `MatricesSwift.xcodeproj` sigue siendo el punto de entrada para editar y ejecutar el programa de consola con **⌘R**, pero no tiene un test target propio: para `⌘U` debes abrir el paquete.
+
+Los tests cubren inicializadores, valores aleatorios dentro del rango, matriz nula, factoría `zeros`, lectura y escritura con índices inválidos, copias y referencias, suma, resta, multiplicación matricial y escalar, operadores compuestos, igualdad y dimensiones incompatibles.
+
+GitHub Actions ejecuta `swift test --parallel` automáticamente en cada `push` y `pull_request` mediante `.github/workflows/swift-tests.yml`.
 
 ## Criterios de implementación
 
