@@ -51,8 +51,8 @@ Se generalizará la jerarquía mediante tipos genéricos, para trabajar con `Int
 - [x] Conceptos de `nil`, `Void`, etiquetas de argumentos, `guard` y `@discardableResult`.
 - [x] Validación de dimensiones para suma y resta.
 - [x] Completar los operadores aritméticos básicos y compuestos.
-- [x] Añadir 45 pruebas automatizadas con Swift Testing.
-- [ ] Implementar `MatrizC`, `MatrizP` y `MatrizI`.
+- [x] Añadir 63 pruebas automatizadas con Swift Testing.
+- [x] Implementar la primera versión de `MatrizC`, `MatrizP` y `MatrizI`.
 - [ ] Implementar genéricos y `Fibonacci`.
 - [ ] Refactorizar con patrones idiomáticos de Swift.
 - [ ] Desarrollar una interfaz SwiftUI (ampliación opcional).
@@ -69,7 +69,7 @@ Para trabajar en el proyecto, abre el proyecto de Xcode desde tu copia local, se
 
 ## Ejecutar las pruebas
 
-Las 45 pruebas de `Matriz`, `MatrizC` y `MatrizP` se han escrito con **Swift Testing** y funcionan mediante **Swift Package Manager**, sin modificar el proyecto de consola de Xcode existente.
+Las 63 pruebas de `Matriz`, `MatrizC`, `MatrizP` y `MatrizI` se han escrito con **Swift Testing** y funcionan mediante **Swift Package Manager**, sin modificar el proyecto de consola de Xcode existente.
 
 Desde la raíz del repositorio:
 
@@ -80,7 +80,7 @@ swift test --parallel
 
 Para ejecutarlas visualmente en **Xcode**, abre la carpeta `MatricesSwift/` como *Swift Package* (mediante `File > Open`, seleccionando la carpeta que contiene `Package.swift`) y utiliza **⌘U**. El proyecto `MatricesSwift.xcodeproj` sigue siendo el punto de entrada para editar y ejecutar el programa de consola con **⌘R**, pero no tiene un test target propio: para `⌘U` debes abrir el paquete.
 
-Los tests cubren inicializadores de `Matriz`, `MatrizC` y `MatrizP`, construcción y conversión failable, copias independientes, matrices nulas y dimensiones inválidas, operaciones aritméticas, igualdad y la invariante de las matrices de permutación. En `MatrizP`, se prueban expresamente el validador, la aleatoriedad con distintos órdenes, la protección contra cambios de elementos y los intercambios de filas y columnas.
+Los tests cubren inicializadores de `Matriz`, `MatrizC`, `MatrizP` y `MatrizI`, construcción y conversión failable, copias independientes, matrices nulas y dimensiones inválidas, operaciones aritméticas e igualdad. En `MatrizP` se comprueban la invariante de permutación, los intercambios y la protección de los valores. En `MatrizI` se comprueba la identidad para múltiples órdenes, su validación, los rechazos de operaciones que romperían la diagonal, los índices inválidos y el polimorfismo mediante referencias de las superclases.
 
 GitHub Actions ejecuta `swift test --parallel` automáticamente en cada `push` y `pull_request` mediante `.github/workflows/swift-tests.yml`.
 
