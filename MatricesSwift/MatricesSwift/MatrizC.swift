@@ -19,7 +19,7 @@ class MatrizC: Matriz {
         super.init(filas: orden, columnas: orden, valorInicial: valorInicial)
     }
     
-    init?(copiaDe otra: MatrizC) {
+    override init?(copiaDe otra: Matriz) {
         guard !otra.esNula,
               otra.filas == otra.columnas else {
             return nil
