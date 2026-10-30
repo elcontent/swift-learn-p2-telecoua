@@ -239,20 +239,7 @@ class Matriz: Equatable {
     }
     
     static func * (lhs: Int, rhs: Matriz) -> Matriz {
-        
-        guard !rhs.esNula else {
-            return Matriz()
-        }
-        
-        let resultado = Matriz(copiaDe: rhs)
-        
-        for fila in 0..<rhs.filas {
-            for columna in 0..<rhs.columnas {
-                resultado.elementos[fila][columna] = rhs.elementos[fila][columna] * lhs
-            }
-        }
-        
-        return resultado
+        return rhs * lhs
     }
     
     static func += (lhs: inout Matriz, rhs: Matriz) {
